@@ -10,13 +10,13 @@
  (1)数据属性：[[configurable]](能否修改属性), [[enumerable]](能否通过for in 循环获取),[[writable]](能否修改),[[value]], 通过Object.defineProperty(obj, proper, properObj)方法修改默认属性
     例如：
     ```
-    var a = {
-      name: 'jiang'
-    };
-    console.log(Object.getOwnPropertyDescriptor(a, 'name')); // {value: "jiang", writable: true, enumerable: true, configurable: true}
-    Object.defineProperty(a, 'name', { 'writable': false});
-    a.name = 'zhong';
-    console.log(Object.getOwnPropertyDescriptor(a, 'name')); // {value: "jiang", writable: false, enumerable: true, configurable: true} // 值没有改变
+      var a = {
+        name: 'jiang'
+      };
+      console.log(Object.getOwnPropertyDescriptor(a, 'name')); // {value: "jiang", writable: true, enumerable: true, configurable: true}
+      Object.defineProperty(a, 'name', { 'writable': false});
+      a.name = 'zhong';
+      console.log(Object.getOwnPropertyDescriptor(a, 'name')); // {value: "jiang", writable: false, enumerable: true, configurable: true} // 值没有改变
     ```
  (2)访问器属性：函数(getter(),setter), 特性([[Configuable]], [[Enumerable]], [[Get]], [[Set]])
    例如：
