@@ -1,5 +1,11 @@
 ## 6.1理解对象
-  创建方式：new Object() 和 字面量
+  创建方式：函数生成 和 字面量
+  例如：
+  ```
+     var a = new Object(); // new 构造函数方式
+     var a = Object(); // 调用函数
+     var a = {}; // 字面量
+  ```
 ### 属性类型
  (1)数据属性：[[Configurable]], [[Enumerable]],[[Writable]],[[Value]], 通过Object.defineProperty(obj, proper, properObj)方法修改默认属性
  (2)访问器属性：函数(getter(),setter), 特性([[Configuable]], [[Enumerable]], [[Get]], [[Set]])
