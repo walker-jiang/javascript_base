@@ -7,7 +7,7 @@
 ## svg vs canvas
 svg：XML 描述 2D 图形的语言；SVG DOM 中的每个元素都是可用的。您可以为某个元素附加 JavaScript 事件处理器；每个被绘制的图形均被视为对象。如果 SVG 对象的属性发生变化，那么浏览器能够自动重现图形
 canvas ：JavaScript 来绘制 2D 图形;逐像素进行渲染的；旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象
-面试题：
+## 面试题：
 
 1、介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？
 标准盒模型：整体宽度 = 内容宽度（content） + padding + border + margin
@@ -56,13 +56,13 @@ canvas ：JavaScript 来绘制 2D 图形;逐像素进行渲染的；旦图形被
       background: red;
       width: 400px;
       height: 400px;
-      margin-top: 50px; // 显示大的值
+      margin-top: 50px; // 大的值作为最外层margin-top
     }
     .son{
       background: black;
       width: 400px;
       height: 200px;
-      margin-top: 40px; // 小的舍去不显示
+      margin-top: 40px; // 舍去不显示
     }
   </style>
   </head>
@@ -126,3 +126,33 @@ canvas ：JavaScript 来绘制 2D 图形;逐像素进行渲染的；旦图形被
     9 媒体查询：定义两套css，当浏览器的尺寸变化时会采用不同的属性
 6、经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用hack的技巧？
     * 浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。
+7、css多列等高如何实现？（例如左边菜单想要和右侧内容保持高度一致）
+   可以通过css盒子模型来解决，每列元素都设置一个比较大的padding-bottom，然后margin-bottom设置一个可以相反的值，这样保持在父元素内的每列高度和之前一样，然后父元素设置超过隐藏，就巧妙地形成了多列高度一样
+8、li与li之间有看不见的空白间隔是什么原因引起的(display:inline ||   inline-block)？有什么解决办法？
+   如果是每行一个li元素那么行之间有个换行符，这是导致有空隙的原因，解决方法是将所有li元素写在一行去掉换行符或者在ul折
+9、css定义的权重
+   标签的权重是1， class的权重是10， id的权重是100，权重越大优先级越高
+   ```
+   div {} // 权重1
+  .name {} // 权重10
+  #id {} // 权重100
+  .name div {} // 权重 10 + 1
+  #id div {} // 权重 100 + 1
+  .name.name div {} // 10 + 10 + 1
+   ```
+10、移动端的布局用过媒体查询吗？
+  @media (min-width: 700px) and (orientation:landscape){ .sidebar { display: none; } } // 屏幕大于700px时该样式生效
+11、::before 和 :after中双冒号和单冒号 有什么区别？
+    ::伪元素，:伪类
+12、如果需要手动写动画，你认为最小时间间隔是多久，为什么？
+    每秒60帧，animation
+13、什么是CSS 预处理器 / 后处理器？
+    预处理器例如：less、sass、stylus，用一种专门的编程语言，为 CSS 增加了一些编程的特性，将css作为目标生成文件。
+    后处理器：autoprefixer，对css进行兼容和优化
+14、css3 display新添加的属性display: box, box后可以添加的属性
+    (1) box-orient: 父容器里子容器的排列方式
+    (2) box-direction: 父容器里子容器的排列顺序 horizontal | vertical
+    子元素可以设置box-flex: 比例，进行等比分隔 normal | reverse | inherit
+    (3) box-align: 父容器里子元素的垂直对齐方式 start | end | center | baseline | strech
+    (4) box-pack: 父容器里子元素的水平对齐方式 start | end | center | justify
+    (5) line-clamp: 最多几行，超出溢出

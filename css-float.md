@@ -26,6 +26,8 @@
 </body>
 </html>
 ```
+**注：** 文字不能再行内溢出才有效果
+
 脱离正常的文档流&display: inline-block
 ```
 <!DOCTYPE html>
