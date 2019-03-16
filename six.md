@@ -210,6 +210,7 @@ SuperFunc.prototype = new ...  // 继续继承成链
  };
  var superFunc = new SuperFunc();
  SubFunc.prototype = superFunc;
+ SubFunc.prototype.constructor = SubFunc;
  var subFunc1 = new SubFunc();
  subFunc1.arms.push('right');
  var subFunc2 = new SubFunc();
