@@ -9,8 +9,6 @@
   <div id='test'>测试</div>
 </body>
 <script>
-  console.log()
-var a = function(){}
 
 var moduleCache = {}
   var F = {}
@@ -18,18 +16,20 @@ var moduleCache = {}
 
     var setModule = function(moduleName, params, callback){
         var _module, fn;
+        console.log(moduleName, moduleCache, moduleCache[moduleName], !!moduleCache[moduleName])
         if (moduleCache[moduleName]) {
           _module = moduleCache[moduleName];
           _module.status = 'loaded';
-          _module.exports = callback ? callBack.apply(_module, params) : null;
+          _module.exports = callback ? callback.apply(_module, params) : null;
           while(fn = _module.onload.shift()) {
             fn(_module.exports)
           }
         } else {
+          console.log(callback)
           callback && callback.apply(null, params)
         }
-      },
-      loadModule = function(moduleName, callback){
+      }
+    var loadModule = function(moduleName, callback){
         var _module;
         if (moduleCache[moduleName]) {
           _module = moduleCache[moduleName];
@@ -73,10 +73,11 @@ var moduleCache = {}
         (function(i){
           deptCount++;
           loadModule(depts[i], function(mod) {
+            console.log('回调')
             params[i] = mod;
             deptCount--;
+            console.log('len', deptCount)
             if (deptCount === 0) {
-              console.log('len')
               setModule(url, params, callback)
             }
           })
@@ -88,12 +89,13 @@ var moduleCache = {}
     }
 
 
- 
+
 
   }
 
-  
+
 F.module(['lib/event', 'lib/dom'], function(events, dom) {
+  console.log('终极回调')
   events.on('demo', 'click', function() {
     dom.html('demo', 'success')
   })
