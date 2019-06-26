@@ -1,5 +1,4 @@
-console.log(F)
-F.module('./lib/dom', function() {
+F.module('lib/dom', function() {
   return {
     g: function(id){
       return document.getElementById(id)
