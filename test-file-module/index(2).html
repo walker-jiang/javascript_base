@@ -9,35 +9,6 @@
   <div id='test'>测试</div>
 </body>
 <script>
-  // var test = []
-  // function go(arg) {
-  //   i = 0,
-  //   deptCount = 0,
-  //   len = arg
-  //   while (i < len) {
-  //     (function(i){
-  //       deptCount++;
-  //       loadModule([], function() {
-  //         deptCount--;
-  //         if (deptCount === 0) {
-  //           console.log('len')
-  //         }
-  //       })
-  //     })(i)
-  //     i++
-  //   }
-  // }
-  // var loadModule = function(arg1, arg2){
-  //   test.push(arg2)
-  // }
-  // go(2)
-  // while(test.length) {
-  //   test.pop()()
-  // }
-  // go(1)
-  // while(test.length) {
-  //   test.pop()()
-  // }
 
 var moduleCache = {};
 
@@ -46,18 +17,20 @@ var deptCount = 0;
   F.module = function (url, modDeps, modCallback) {
 
     var setModule = function(moduleName, params, callback){
-      var _module, fn;
-      if (moduleCache[moduleName]) {
-        _module = moduleCache[moduleName];
-        _module.status = 'loaded';
-        _module.exports = callback ? callback.apply(_module, params) : null;
-        while(fn = _module.onload.shift()) {
-          fn(_module.exports)
+        var _module, fn;
+        console.log(moduleName, moduleCache, moduleCache[moduleName], !!moduleCache[moduleName])
+        if (moduleCache[moduleName]) {
+          _module = moduleCache[moduleName];
+          _module.status = 'loaded';
+          _module.exports = callback ? callback.apply(_module, params) : null;
+          while(fn = _module.onload.shift()) {
+            fn(_module.exports)
+          }
+        } else {
+          console.log(callback)
+          callback && callback.apply(null, params)
         }
-      } else {
-        callback && callback.apply(null, params)
       }
-    };
     var loadModule = function(moduleName, callback){
         var _module;
         if (moduleCache[moduleName]) {
@@ -101,10 +74,11 @@ var deptCount = 0;
         (function(i){
           deptCount++;
           loadModule(depts[i], function(mod) {
+            console.log('回调')
             params[i] = mod;
             deptCount--;
+            console.log('len', deptCount)
             if (deptCount === 0) {
-              console.log('len')
               setModule(url, params, callback)
             }
           })
@@ -116,8 +90,9 @@ var deptCount = 0;
     }
   }
 
-  
+
 F.module(['lib/event', 'lib/dom'], function(events, dom) {
+  console.log('终极回调')
   events.on('demo', 'click', function() {
     dom.html('demo', 'success')
   })
